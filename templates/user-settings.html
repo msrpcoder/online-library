@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.template.html' %}
+<body>
+{% include 'header.template.html' %}
+{% include 'sidebar.template.html' %}
+
+<main class="main" id="main">
+    {% include 'breadcrumb.template.html' %}
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Change Password</h5>
+                        <!-- General Form Elements -->
+                        <form>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="current-password">Current Password</label>
+                                <div class="col-sm-10">
+                                    <input id="current-password" class="form-control" type="password">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="new-password">New Password</label>
+                                <div class="col-sm-10">
+                                    <input id="new-password" class="form-control" type="password">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="new-password-1">New Password</label>
+                                <div class="col-sm-10">
+                                    <input id="new-password-1" class="form-control" type="password">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-2 col-form-label"></div>
+                                <div class="col-sm-2">
+                                    <input id="change" class="form-control btn btn-primary" type="submit">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="reset" class="form-control btn btn-danger" type="reset">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.template.html' %}
+{% include 'js.template.html' %}
+
+</body>
+</html>

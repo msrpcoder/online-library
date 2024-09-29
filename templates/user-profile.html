@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.template.html' %}
+<body>
+{% include 'header.template.html' %}
+{% include 'sidebar.template.html' %}
+
+<main class="main" id="main">
+    {% include 'breadcrumb.template.html' %}
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="profile-img figure-img img-fluid rounded"
+                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                </figure>
+            </div>
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile details</h5>
+                        <!-- General Form Elements -->
+                        <form>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="firstName">First Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="firstName" type="text">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="lastName">Last Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="lastName" type="text">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="email">Email</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="email" type="email">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="profileImage">Profile Image</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="profileImage" type="file">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-2 col-form-label"></div>
+                                <div class="col-sm-2">
+                                    <input class="form-control btn btn-primary" id="change" type="submit">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control btn btn-danger" id="reset" type="reset">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.template.html' %}
+{% include 'js.template.html' %}
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.template.html' %}
+<body>
+{% include 'header.template.html' %}
+{% include 'sidebar.template.html' %}
+
+<main class="main" id="main">
+    {% include 'breadcrumb.template.html' %}
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 ">
+                <div class="card">
+                    <div class="card-body">
+                        <object data="{% static '[CLOUD][Cloud Architecture Patterns].pdf' %}#toolbar=0" width="100%" height="500px" type="application/pdf">
+                          <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+                        </object>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.template.html' %}
+{% include 'js.template.html' %}
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.template.html' %}
+<body>
+{% include 'header.template.html' %}
+{% include 'sidebar.template.html' %}
+
+<main class="main" id="main">
+    {% include 'breadcrumb.template.html' %}
+    <section class="section dashboard">
+        <div class="col-lg-12 alert alert-primary alert-dismissible fade show" role="">
+            Sales
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <!-- Total Subscriptions -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Subscriptions</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-cart"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>145</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Subscriptions Card -->
+
+                    <!-- Total Revenue -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Revenue</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>$3,264</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- End Revenue Card -->
+
+                    <!-- Total Users -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Users</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>145</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- End Users Card -->
+
+                    <!-- Total Premium users -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Premium Users</h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>$3,264</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- End Premium users Card -->
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Activity</h5>
+                        <div class="activity" style="overflow: scroll;max-height:260px">
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">32 min</div>
+                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                <div class="activity-content">
+                                    Quia quae rerum <a class="fw-bold text-dark" href="#">explicabo officiis</a> beatae
+                                </div>
+                            </div><!-- End activity item-->
+
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">56 min</div>
+                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                <div class="activity-content">
+                                    Voluptatem blanditiis blanditiis eveniet
+                                </div>
+                            </div><!-- End activity item-->
+
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">2 hrs</div>
+                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                <div class="activity-content">
+                                    Voluptates corrupti molestias voluptatem
+                                </div>
+                            </div><!-- End activity item-->
+
+                            <div class="activity-item d-flex">
+                                <div class="activite-label">1 day</div>
+                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                <div class="activity-content">
+                                    Tempore autem saepe <a class="fw-bold text-dark" href="#">occaecati voluptatem</a>
+                                    tempore
+                                </div>
+                            </div><!-- End activity item-->
+
+
+                        </div>
+
+                    </div>
+                </div><!-- End Recent Activity -->
+            </div>
+        </div>
+        <div class="col-lg-12 alert alert-primary alert-dismissible fade show" role="">
+            Book Catalog Metrics
+        </div>
+        <div class="row">
+            <!-- Top Books -->
+            <div class="col-12">
+                <div class="card top-selling overflow-auto">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Trending</h5>
+                        <table class="table table-borderless">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Publication</th>
+                                <th scope="col">Views</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row"><a href="#"><img alt=""
+                                                                 height="60px"
+                                                                 src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg"
+                                                                 width="60px"></a></th>
+                                <td><a class="text-primary fw-bold" href="#">Shreemad Bhagwat Geeta</a></td>
+                                <td>Shree Ved Vyas</td>
+                                <td class="fw-bold">Geeta Press, Gorakhpur</td>
+                                <td>1200</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><a href="#"><img alt=""
+                                                                 height="60px"
+                                                                 src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg"
+                                                                 width="60px"></a></th>
+                                <td><a class="text-primary fw-bold" href="#">Shreemad Bhagwat Geeta</a></td>
+                                <td>Shree Ved Vyas</td>
+                                <td class="fw-bold">Geeta Press, Gorakhpur</td>
+                                <td>1200</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><a href="#"><img alt=""
+                                                                 height="60px"
+                                                                 src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg"
+                                                                 width="60px"></a></th>
+                                <td><a class="text-primary fw-bold" href="#">Shreemad Bhagwat Geeta</a></td>
+                                <td>Shree Ved Vyas</td>
+                                <td class="fw-bold">Geeta Press, Gorakhpur</td>
+                                <td>1200</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><a href="#"><img alt=""
+                                                                 height="60px"
+                                                                 src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg"
+                                                                 width="60px"></a></th>
+                                <td><a class="text-primary fw-bold" href="#">Shreemad Bhagwat Geeta</a></td>
+                                <td>Shree Ved Vyas</td>
+                                <td class="fw-bold">Geeta Press, Gorakhpur</td>
+                                <td>1200</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><a href="#"><img alt=""
+                                                                 height="60px"
+                                                                 src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg"
+                                                                 width="60px"></a></th>
+                                <td><a class="text-primary fw-bold" href="#">Shreemad Bhagwat Geeta</a></td>
+                                <td>Shree Ved Vyas</td>
+                                <td class="fw-bold">Geeta Press, Gorakhpur</td>
+                                <td>1200</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- End Top Books -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Top 50 trends(by Genre)</h5>
+                    <div class="echart" id="top50ByGenre" style="min-height: 400px;"></div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                          echarts.init(document.querySelector("#top50ByGenre")).setOption({
+                            tooltip: {
+                              trigger: 'item'
+                            },
+                            legend: {
+                              top: '5%',
+                              left: 'center'
+                            },
+                            series: [{
+                              name: 'Access From',
+                              type: 'pie',
+                              radius: ['40%', '70%'],
+                              avoidLabelOverlap: false,
+                              label: {
+                                show: false,
+                                position: 'center'
+                              },
+                              emphasis: {
+                                label: {
+                                  show: true,
+                                  fontSize: '18',
+                                  fontWeight: 'bold'
+                                }
+                              },
+                              labelLine: {
+                                show: false
+                              },
+                              data: [{
+                                  value: 1048,
+                                  name: 'Search Engine'
+                                },
+                                {
+                                  value: 735,
+                                  name: 'Direct'
+                                },
+                                {
+                                  value: 580,
+                                  name: 'Email'
+                                },
+                                {
+                                  value: 484,
+                                  name: 'Union Ads'
+                                },
+                                {
+                                  value: 300,
+                                  name: 'Video Ads'
+                                }
+                              ]
+                            }]
+                          });
+                        });
+                    </script>
+                </div>
+            </div><!-- End Website Traffic -->
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Top 50 trends(by Language)</span></h5>
+
+                    <div class="echart" id="top50ByLanguage" style="min-height: 400px;"></div>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                          echarts.init(document.querySelector("#top50ByLanguage")).setOption({
+                            tooltip: {
+                              trigger: 'item'
+                            },
+                            legend: {
+                              top: '5%',
+                              left: 'center'
+                            },
+                            series: [{
+                              name: 'Access From',
+                              type: 'pie',
+                              radius: ['40%', '70%'],
+                              avoidLabelOverlap: false,
+                              label: {
+                                show: false,
+                                position: 'center'
+                              },
+                              emphasis: {
+                                label: {
+                                  show: true,
+                                  fontSize: '18',
+                                  fontWeight: 'bold'
+                                }
+                              },
+                              labelLine: {
+                                show: false
+                              },
+                              data: [{
+                                  value: 1048,
+                                  name: 'Search Engine'
+                                },
+                                {
+                                  value: 735,
+                                  name: 'Direct'
+                                },
+                                {
+                                  value: 580,
+                                  name: 'Email'
+                                },
+                                {
+                                  value: 484,
+                                  name: 'Union Ads'
+                                },
+                                {
+                                  value: 300,
+                                  name: 'Video Ads'
+                                }
+                              ]
+                            }]
+                          });
+                        });
+                    </script>
+
+                </div>
+            </div><!-- End Website Traffic -->
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.template.html' %}
+{% include 'js.template.html' %}
+
+</body>
+</html>

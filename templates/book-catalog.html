@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.template.html' %}
+<body>
+{% include 'header.template.html' %}
+{% include 'sidebar.template.html' %}
+
+<main class="main" id="main">
+    {% include 'breadcrumb.template.html' %}
+    <section class="section">
+        <div class="alert alert-primary alert-dismissible fade show" role="">
+            Sports
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <a href="{% url 'book-preview' 12 %}">
+                        <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="img-tile figure-img img-fluid rounded"
+                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                    </a>
+                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
+                </figure>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="img-tile figure-img img-fluid rounded"
+                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
+                </figure>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure." class="img-tile figure-img img-fluid rounded"
+                         src="{% static 'img/logo.png' %}">
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="img-tile figure-img img-fluid rounded"
+                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="alert alert-primary alert-dismissible fade show" role="">
+            Religious
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="img-tile figure-img img-fluid rounded"
+                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
+                </figure>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="img-tile figure-img img-fluid rounded"
+                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
+                </figure>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure." class="img-tile figure-img img-fluid rounded"
+                         src="{% static 'img/logo.png' %}">
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+                <figure class="figure">
+                    <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="img-tile figure-img img-fluid rounded"
+                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.template.html' %}
+{% include 'js.template.html' %}
+
+</body>
+</html>
