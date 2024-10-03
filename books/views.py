@@ -1,19 +1,21 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
+from utils.views import BaseLoginView
+
 
 # Create your views here.
-class BookAddView(TemplateView):
+class BookAddView(BaseLoginView, TemplateView):
     template_name = "book-form.html"
 
 
-class BookCatalogView(TemplateView):
+class BookCatalogView(BaseLoginView, TemplateView):
     template_name = "book-catalog.html"
 
 
-class BookDetailsView(TemplateView):
+class BookDetailsView(BaseLoginView, TemplateView):
     template_name = "book-details.html"
 
 
-class BookPreviewView(TemplateView):
+class BookPreviewView(BaseLoginView, TemplateView):
     template_name = "book-preview.html"
