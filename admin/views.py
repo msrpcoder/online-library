@@ -11,3 +11,9 @@ class AdminDashboardView(BaseLoginView, TemplateView):
 
     def get_login_url(self):
         return reverse('signin')
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Dashboard'
+        }

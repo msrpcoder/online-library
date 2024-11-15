@@ -73,14 +73,14 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">Premium Users</h5>
+                                <h5 class="card-title">Online Users</h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-person"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>$3,264</h6>
+                                        <h6>64</h6>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                 <div class="activite-label">32 min</div>
                                 <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                                 <div class="activity-content">
-                                    Quia quae rerum <a class="fw-bold text-dark" href="#">explicabo officiis</a> beatae
+                                    Added book <a class="fw-bold text-dark" href="#">Shreemad Bhagwat Geeta</a>
                                 </div>
                             </div><!-- End activity item-->
 
@@ -107,7 +107,7 @@
                                 <div class="activite-label">56 min</div>
                                 <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                                 <div class="activity-content">
-                                    Voluptatem blanditiis blanditiis eveniet
+                                    User XYZ has subscribed to premium plan
                                 </div>
                             </div><!-- End activity item-->
 
@@ -115,7 +115,7 @@
                                 <div class="activite-label">2 hrs</div>
                                 <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
                                 <div class="activity-content">
-                                    Voluptates corrupti molestias voluptatem
+                                    New User signup: ABC
                                 </div>
                             </div><!-- End activity item-->
 
@@ -123,8 +123,7 @@
                                 <div class="activite-label">1 day</div>
                                 <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
                                 <div class="activity-content">
-                                    Tempore autem saepe <a class="fw-bold text-dark" href="#">occaecati voluptatem</a>
-                                    tempore
+                                    New User signup: Sanjay Rajpurohit
                                 </div>
                             </div><!-- End activity item-->
 
@@ -156,11 +155,14 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row"><a href="#"><img alt=""
-                                                                 height="60px"
-                                                                 src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg"
-                                                                 width="60px"></a></th>
-                                <td><a class="text-primary fw-bold" href="#">Shreemad Bhagwat Geeta</a></td>
+                                <th scope="row">
+                                    <a href="{% url 'book-details' 12 %}">
+                                        <img alt="" height="60px"
+                                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg"
+                                         width="60px">
+                                    </a>
+                                </th>
+                                <td><a href="{% url 'book-details' 12 %}">Shreemad Bhagwat Geeta</a></td>
                                 <td>Shree Ved Vyas</td>
                                 <td class="fw-bold">Geeta Press, Gorakhpur</td>
                                 <td>1200</td>

@@ -22,6 +22,7 @@ class Publisher(TrackedMixin, Model):
 
 class Genre(TrackedMixin, Model):
     name = models.TextField(null=False, max_length=100)
+    description = models.TextField(max_length=500)
 
 
 class Book(TrackedMixin, Model):

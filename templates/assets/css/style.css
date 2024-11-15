@@ -1255,3 +1255,7 @@ h6 {
 .invalid-feedback {
     display: block;
 }
+
+.add-new-button {
+    float: right;
+}
