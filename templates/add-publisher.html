@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.template.html' %}
+<body>
+{% include 'header.template.html' %}
+{% include 'sidebar.template.html' %}
+
+<main class="main" id="main">
+    {% include 'breadcrumb.template.html' %}
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add new Publisher</h5>
+
+                        <!-- General Form Elements -->
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="name">Name</label>
+                                <div class="col-sm-10">
+                                    <input required name="name" id="name" class="form-control" type="text" value="{{publisher.name}}">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="submit"></label>
+                                <div class="col-sm-10">
+                                    <button id="submit" class="btn btn-primary" type="submit">Add</button>
+                                    <button id="reset" class="btn btn-primary" type="reset">Reset</button>
+                                </div>
+                            </div>
+
+                        </form><!-- End General Form Elements -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.template.html' %}
+{% include 'js.template.html' %}
+
+</body>
+</html>

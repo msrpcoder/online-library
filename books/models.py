@@ -20,6 +20,10 @@ class Publisher(TrackedMixin, Model):
     name = models.TextField(null=False, max_length=100)
 
 
+class Language(TrackedMixin, Model):
+    name = models.TextField(null=False, max_length=100)
+
+
 class Genre(TrackedMixin, Model):
     name = models.TextField(null=False, max_length=100)
     description = models.TextField(max_length=500)

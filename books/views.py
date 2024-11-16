@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import TemplateView
 
-from books.models import Genre, Author
+from books.models import Genre, Author, Publisher, Language
 from utils.views import BaseLoginView
 
 logger = logging.getLogger()
@@ -51,19 +51,101 @@ class AuthorAddView(BaseLoginView, TemplateView):
             return HttpResponseRedirect(reverse('author-list'))
 
 
+class PublisherAddView(BaseLoginView, TemplateView):
+    template_name = 'add-publisher.html'
+
+    def get_context_data(self, **kwargs):
+        publisher = None
+        publisher_id = kwargs.get('id', None)
+        if publisher_id:
+            try:
+                publisher = Publisher.objects.get(pk=publisher_id)
+            except Publisher.DoesNotExist:
+                logger.warning(f"Publisher {publisher_id} doesn't exists.")
+
+        return {
+            **kwargs,
+            'page_header': 'Add Publisher',
+            'publisher': publisher
+        }
+
+    def post(self, request, **kwargs):
+        publisher_id = kwargs.get('id', None)
+        name = request.POST.get('name', '')
+
+        if not name:
+            return self.get(request, errors={'name': 'This field is required.'})
+        else:
+            publisher = None
+            if publisher_id:
+                try:
+                    publisher = Publisher.objects.get(pk=publisher_id)
+                except Publisher.DoesNotExist:
+                    logger.warning("Publisher don't exist.")
+
+            if not publisher:
+                publisher = Publisher()
+
+            publisher.name = name
+            publisher.save()
+
+            return HttpResponseRedirect(reverse('publisher-list'))
+
+
+class LanguageAddView(BaseLoginView, TemplateView):
+    template_name = 'add-language.html'
+
+    def get_context_data(self, **kwargs):
+        language = None
+        language_id = kwargs.get('id', None)
+        if language_id:
+            try:
+                language = Language.objects.get(pk=language_id)
+            except Language.DoesNotExist:
+                logger.warning(f"Language {language_id} doesn't exists.")
+
+        return {
+            **kwargs,
+            'page_header': 'Add Language',
+            'language': language
+        }
+
+    def post(self, request, **kwargs):
+        language_id = kwargs.get('id', None)
+        name = request.POST.get('name', '')
+
+        if not name:
+            return self.get(request, errors={'name': 'This field is required.'})
+        else:
+            language = None
+            if language_id:
+                try:
+                    language = Language.objects.get(pk=language_id)
+                except Language.DoesNotExist:
+                    logger.warning("Language don't exist.")
+
+            if not language:
+                language = Language()
+
+            language.name = name
+            language.save()
+
+            return HttpResponseRedirect(reverse('language-list'))
+
+
 # Create your views here.
 class BookAddView(BaseLoginView, TemplateView):
     template_name = "book-form.html"
-
-    def _get_genres(self):
-        return ['Religion', 'Sports']
 
     def get_context_data(self, **kwargs):
         return {
             **kwargs,
             'genre': self.request.GET.get('genre', ''),
             'page_header': 'Add book',
-            'genres': self._get_genres()
+            'genres': Genre.objects.all(),
+            'publishers': Publisher.objects.all(),
+            'authors': Author.objects.all(),
+            'languages': Language.objects.all()
         }
 
 
@@ -75,6 +157,28 @@ class AuthorListView(BaseLoginView, TemplateView):
             **kwargs,
             'page_header': 'Authors',
             'authors': Author.objects.all()
+        }
+
+
+class PublisherListView(BaseLoginView, TemplateView):
+    template_name = 'list-publishers.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Publishers',
+            'publishers': Publisher.objects.all()
+        }
+
+
+class LanguageListView(BaseLoginView, TemplateView):
+    template_name = 'list-languages.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Languages',
+            'languages': Language.objects.all()
         }
 
 
@@ -104,6 +208,34 @@ class AuthorDeleteView(BaseLoginView):
             author.delete()
 
         return HttpResponseRedirect(redirect_to=reverse('author-list'))
+
+
+class PublisherDeleteView(BaseLoginView):
+    def post(self, request, **kwargs):
+        publisher_id = kwargs.get('id', request.POST.get('id', ''))
+
+        try:
+            publisher = Publisher.objects.get(pk=publisher_id)
+        except Publisher.DoesNotExist:
+            logger.warning(f"Object with id: {publisher_id} doesn't exist.")
+        else:
+            publisher.delete()
+
+        return HttpResponseRedirect(redirect_to=reverse('publisher-list'))
+
+
+class LanguageDeleteView(BaseLoginView):
+    def post(self, request, **kwargs):
+        language_id = kwargs.get('id', request.POST.get('id', ''))
+
+        try:
+            language = Language.objects.get(pk=language_id)
+        except Language.DoesNotExist:
+            logger.warning(f"Object with id: {language_id} doesn't exist.")
+        else:
+            language.delete()
+
+        return HttpResponseRedirect(redirect_to=reverse('language-list'))
 
 
 class GenreAddView(BaseLoginView, TemplateView):
