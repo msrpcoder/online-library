@@ -15,7 +15,7 @@
             <div class="col-lg-10 ">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Add new Genre</h5>
+                        <h5 class="card-title">Add new Author</h5>
 
                         <!-- General Form Elements -->
                         <form method="post">
@@ -23,16 +23,10 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="name">Name</label>
                                 <div class="col-sm-10">
-                                    <input required name="name" id="name" class="form-control" type="text" value="{{genre.name}}">
+                                    <input required name="name" id="name" class="form-control" type="text" value="{{author.name}}">
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="description">Description</label>
-                                <div class="col-sm-10">
-                                    <textarea id="description" name="description" class="form-control">{{genre.description}}"</textarea>
-                                </div>
-                            </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="submit"></label>
                                 <div class="col-sm-10">

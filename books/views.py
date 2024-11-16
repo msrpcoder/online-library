@@ -4,10 +4,51 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import TemplateView
 
-from books.models import Genre
+from books.models import Genre, Author
 from utils.views import BaseLoginView
 
 logger = logging.getLogger()
+
+
+class AuthorAddView(BaseLoginView, TemplateView):
+    template_name = 'add-author.html'
+
+    def get_context_data(self, **kwargs):
+        author = None
+        author_id = kwargs.get('id', None)
+        if author_id:
+            try:
+                author = Author.objects.get(pk=author_id)
+            except Author.DoesNotExist:
+                logger.warning(f"Genre {author_id} doesn't exists.")
+
+        return {
+            **kwargs,
+            'page_header': 'Add Author',
+            'author': author
+        }
+
+    def post(self, request, **kwargs):
+        author_id = kwargs.get('id', None)
+        name = request.POST.get('name', '')
+
+        if not name:
+            return self.get(request, errors={'name': 'This field is required.'})
+        else:
+            author = None
+            if author_id:
+                try:
+                    author = Author.objects.get(pk=author_id)
+                except Author.DoesNotExist:
+                    logger.warning("Author don't exist.")
+
+            if not author:
+                author = Author()
+
+            author.name = name
+            author.save()
+
+            return HttpResponseRedirect(reverse('author-list'))
 
 
 # Create your views here.
@@ -26,6 +67,17 @@ class BookAddView(BaseLoginView, TemplateView):
         }
 
 
+class AuthorListView(BaseLoginView, TemplateView):
+    template_name = 'list-authors.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Authors',
+            'authors': Author.objects.all()
+        }
+
+
 class GenreDeleteView(BaseLoginView):
     def post(self, request, **kwargs):
         genre_id = kwargs.get('id', request.POST.get('id', ''))
@@ -38,6 +90,20 @@ class GenreDeleteView(BaseLoginView):
             genre.delete()
 
         return HttpResponseRedirect(redirect_to=reverse('genre-list'))
+
+
+class AuthorDeleteView(BaseLoginView):
+    def post(self, request, **kwargs):
+        author_id = kwargs.get('id', request.POST.get('id', ''))
+
+        try:
+            author = Author.objects.get(pk=author_id)
+        except Genre.DoesNotExist:
+            logger.warning(f"Object with id: {author_id} doesn't exist.")
+        else:
+            author.delete()
+
+        return HttpResponseRedirect(redirect_to=reverse('author-list'))
 
 
 class GenreAddView(BaseLoginView, TemplateView):
