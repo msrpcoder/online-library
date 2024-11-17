@@ -155,15 +155,21 @@ class BookAddView(BaseLoginView, TemplateView):
 
     def post(self, request, **kwargs):
         data = request.POST
-
         errors = {}
+
         isbn_no = data.get('isbn-number', '')
         if not isbn_no:
-            errors['isbn-number'] = 'This field is required.'
+            errors['isbn_number'] = 'This field is required.'
+
+        if len(isbn_no) < 3:
+            errors['isbn_number'] = 'ISBN No should have atleast 3 characters.'
 
         title = data.get('title', '')
         if not title:
             errors['title'] = 'This field is required.'
+
+        if len(title) < 3:
+            errors['title'] = 'Title should have atleast 3 characters.'
 
         author_id = data.get('author', '')
         if not author_id:
@@ -206,6 +212,9 @@ class BookAddView(BaseLoginView, TemplateView):
             errors['publication_date'] = 'This field is required'
 
         publication_date = datetime.strptime(publication_date_raw, '%Y-%m-%d').date()
+
+        if publication_date > datetime.today().date():
+            errors['publication_date'] = 'Publication date can not be a future date.'
 
         pdf_file = request.FILES['pdf']
         if not pdf_file:

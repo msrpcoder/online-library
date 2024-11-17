@@ -43,22 +43,6 @@ class Book(TrackedMixin, Model):
     publisher = models.ForeignKey(Publisher, null=False, on_delete=CASCADE)
     publication_date = models.DateField(null=False)
     page_count = models.IntegerField(null=False, default=0)
-    # blob_path = models.FileField(null=False)
-
-    def save(self, *args, **kwargs):
-        if self.publication_date > datetime.date.today():
-            raise ValidationError('Publication date can not be a future date.')
-
-        if len(self.language.name) < 3:
-            raise ValidationError('Language should have atleast 3 characters.')
-
-        if len(self.isbn_no) < 3:
-            raise ValidationError('ISBN No should have atleast 3 characters.')
-
-        if len(self.title) < 3:
-            raise ValidationError('Title should have atleast 3 characters.')
-
-        return super(Book, self).save(*args, **kwargs)
 
     @property
     def thumbnail_exists(self):
