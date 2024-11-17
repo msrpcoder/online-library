@@ -23,7 +23,11 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="isbn-number">ISBN Number</label>
                                 <div class="col-sm-10">
-                                    <input required id="isbn-number" name="isbn-number" class="form-control" type="number" max="100" />
+                                    {% if book %}
+                                        <input required id="isbn-number" name="isbn_number" class="form-control" type="number" min="1000000000000" max="9999999999999" value="{{book.isbn_number}}" />
+                                    {% else %}
+                                        <input required id="isbn-number" name="isbn_number" class="form-control" type="number" min="1000000000000" max="9999999999999" />
+                                    {% endif %}
                                     {% if errors.isbn_number %}
                                         <p class="invalid-feedback">{{errors.isbn_number}}</p>
                                     {% endif %}
@@ -33,7 +37,11 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="title">Title</label>
                                 <div class="col-sm-10">
-                                    <input required id="title" name="title" class="form-control" type="text">
+                                    {% if book %}
+                                        <input required id="title" name="title" class="form-control" type="text" minlength="3" value="{{book.title}}">
+                                    {% else %}
+                                        <input required id="title" name="title" class="form-control" type="text" minlength="3">
+                                    {% endif %}
                                     {% if errors.title %}
                                         <p class="invalid-feedback">{{errors.title}}</p>
                                     {% endif %}
@@ -45,7 +53,15 @@
                                 <div class="col-sm-10">
                                     <select required id="author" name="author" aria-label="Default select example" class="form-select">
                                         {% for author in authors %}
-                                            <option value="{{author.id}}">{{author.name}}</option>
+                                            {% if book %}
+                                                {% if book.author|stringformat:"s" == author.id|stringformat:"i" %}
+                                                    <option value="{{author.id}}" selected>{{author.name}}</option>
+                                                {% else %}
+                                                    <option value="{{author.id}}">{{author.name}}</option>
+                                                {% endif %}
+                                            {% else %}
+                                                <option value="{{author.id}}">{{author.name}}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                     {% if errors.author %}
@@ -59,7 +75,11 @@
                                 <div class="col-sm-10">
                                     <select required id="language" name="language" aria-label="Default select example" class="form-select">
                                         {% for language in languages %}
-                                            <option value="{{language.id}}">{{language.name}}</option>
+                                            {% if book.language|stringformat:"s" == language.id|stringformat:"i" %}
+                                                <option value="{{language.id}}" selected>{{language.name}}</option>
+                                            {% else %}
+                                                <option value="{{language.id}}">{{language.name}}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                     {% if errors.language %}
@@ -73,7 +93,7 @@
                                 <div class="col-sm-10">
                                     <select required id="genre" name="genre" aria-label="select example" class="form-select" >
                                         {% for genre_obj in genres %}
-                                            {% if genre_obj.name == genre %}
+                                            {% if book.genre|stringformat:"s" == genre_obj.id|stringformat:"i" %}
                                                 <option value="{{genre_obj.id}}" selected>{{genre_obj.name}}</option>
                                             {% else %}
                                                 <option value="{{genre_obj.id}}">{{genre_obj.name}}</option>
@@ -91,7 +111,12 @@
                                 <div class="col-sm-10">
                                     <select required id="publisher" name="publisher" aria-label="Default select example" class="form-select">
                                         {% for publisher in publishers %}
-                                            <option value="{{publisher.id}}">{{publisher.name}}</option>
+                                            {% if book.publisher|stringformat:"s" == publisher.id|stringformat:"i" %}
+                                                <option value="{{publisher.id}}" selected>{{publisher.name}}</option>
+                                            {% else %}
+                                                <option value="{{publisher.id}}">{{publisher.name}}</option>
+                                            {% endif %}
+
                                         {% endfor %}
                                     </select>
                                     {% if errors.publisher %}
@@ -101,9 +126,13 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="publicationDate">Publication Date</label>
+                                <label class="col-sm-2 col-form-label" for="publication_date">Publication Date</label>
                                 <div class="col-sm-10">
-                                    <input required class="form-control" id="publicationDate" name="publicationDate" type="date">
+                                    {% if book %}
+                                        <input required class="form-control" id="publication_date" name="publication_date" type="date" value="{{book.publication_date}}">
+                                    {% else %}
+                                        <input required class="form-control" id="publication_date" name="publication_date" type="date">
+                                    {% endif %}
                                     {% if errors.publication_date %}
                                         <p class="invalid-feedback">{{errors.publication_date}}</p>
                                     {% endif %}
@@ -142,7 +171,7 @@
     const uploadField = document.getElementById("pdf");
 
     uploadField.onchange = function() {
-        if (this.files[0].size > 10485760) {
+        if (this.files[0].size > 30485760) {
             alert("File is too big!");
             this.value = "";
         }

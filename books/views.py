@@ -157,7 +157,7 @@ class BookAddView(BaseLoginView, TemplateView):
         data = request.POST
         errors = {}
 
-        isbn_no = data.get('isbn-number', '')
+        isbn_no = data.get('isbn_number', '')
         if not isbn_no:
             errors['isbn_number'] = 'This field is required.'
 
@@ -207,7 +207,7 @@ class BookAddView(BaseLoginView, TemplateView):
         except Publisher.DoesNotExist:
             errors['publisher'] = 'Publisher does not exist'
 
-        publication_date_raw = data.get('publicationDate', '')
+        publication_date_raw = data.get('publication_date', '')
         if not publication_date_raw:
             errors['publication_date'] = 'This field is required'
 
@@ -221,7 +221,7 @@ class BookAddView(BaseLoginView, TemplateView):
             errors['pdf'] = 'This field is required'
 
         if len(errors) > 0:
-            return self.get(request, errors=errors)
+            return self.get(request, errors=errors, book=data)
         else:
             # upload_file
             with transaction.atomic():
@@ -237,7 +237,10 @@ class BookAddView(BaseLoginView, TemplateView):
                 book.save()
 
                 book_media_path = os.path.join(settings.MEDIA_ROOT, str(book.isbn_no))
-                os.makedirs(book_media_path)
+                try:
+                    os.makedirs(book_media_path)
+                except FileExistsError:
+                    logger.error(f"Folder already exists {book_media_path}")
 
                 pdf_path = os.path.join(book_media_path, 'book.pdf')
                 with open(pdf_path, 'wb') as fp:
