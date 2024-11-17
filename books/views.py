@@ -5,6 +5,7 @@ from datetime import datetime
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import TemplateView
 
@@ -153,16 +154,31 @@ class BookAddView(BaseLoginView, TemplateView):
             'languages': Language.objects.all()
         }
 
+    def get(self, request, **kwargs):
+        book_id = kwargs.get('book_id', None)
+        if not book_id:
+            return super().get(request, **kwargs)
+
+        try:
+            book = Book.objects.get(pk=book_id)
+        except Book.DoesNotExist:
+            msg = f'Object with id: {book_id} does not exist.'
+            logger.error(msg)
+
+            return render(request, 'error-page.html', {'error': msg})
+        else:
+            return super().get(request, book=book, **kwargs)
+
     def post(self, request, **kwargs):
         data = request.POST
         errors = {}
 
-        isbn_no = data.get('isbn_number', '')
+        isbn_no = data.get('isbn_no', '')
         if not isbn_no:
-            errors['isbn_number'] = 'This field is required.'
+            errors['isbn_no'] = 'This field is required.'
 
         if len(isbn_no) < 3:
-            errors['isbn_number'] = 'ISBN No should have atleast 3 characters.'
+            errors['isbn_no'] = 'ISBN No should have atleast 3 characters.'
 
         title = data.get('title', '')
         if not title:
@@ -171,41 +187,41 @@ class BookAddView(BaseLoginView, TemplateView):
         if len(title) < 3:
             errors['title'] = 'Title should have atleast 3 characters.'
 
-        author_id = data.get('author', '')
+        author_id = data.get('author_id', '')
         if not author_id:
-            errors['author'] = 'This field is required'
+            errors['author_id'] = 'This field is required'
 
         try:
             author = Author.objects.get(pk=author_id)
         except Author.DoesNotExist:
-            errors['author'] = 'Author does not exists'
+            errors['author_id'] = 'Author does not exists'
 
-        language_id = data.get('language', '')
+        language_id = data.get('language_id', '')
         if not language_id:
-            errors['language'] = 'This field is required'
+            errors['language_id'] = 'This field is required'
 
         try:
             language = Language.objects.get(pk=language_id)
         except Language.DoesNotExist:
-            errors['language'] = 'Language does not exist'
+            errors['language_id'] = 'Language does not exist'
 
-        genre_id = data.get('genre', '')
+        genre_id = data.get('genre_id', '')
         if not genre_id:
-            errors['genre'] = 'This field is required'
+            errors['genre_id'] = 'This field is required'
 
         try:
             genre = Genre.objects.get(pk=genre_id)
         except Genre.DoesNotExist:
-            errors['genre'] = 'Genre does not exist'
+            errors['genre_id'] = 'Genre does not exist'
 
-        publisher_id = data.get('publisher', '')
+        publisher_id = data.get('publisher_id', '')
         if not publisher_id:
-            errors['publisher'] = 'This field is required'
+            errors['publisher_id'] = 'This field is required'
 
         try:
             publisher = Publisher.objects.get(pk=publisher_id)
         except Publisher.DoesNotExist:
-            errors['publisher'] = 'Publisher does not exist'
+            errors['publisher_id'] = 'Publisher does not exist'
 
         publication_date_raw = data.get('publication_date', '')
         if not publication_date_raw:

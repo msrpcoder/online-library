@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.template.html' %}
+<body>
+{% include 'header.template.html' %}
+{% include 'sidebar.template.html' %}
+
+
+<main class="main" id="main">
+    {% include 'breadcrumb.template.html' %}
+    <section class="section dashboard">
+        <div class="col-lg-12 alert alert-primary alert-dismissible fade show" role="">
+            Error {{error}}
+        </div>
+    </section>
+</main>
+
+{% include 'footer.template.html' %}
+{% include 'js.template.html' %}
+
+</body>
+</html>
