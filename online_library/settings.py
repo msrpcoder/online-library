@@ -159,3 +159,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 os.makedirs(MEDIA_ROOT, exist_ok=True)
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

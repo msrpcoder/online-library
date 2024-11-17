@@ -25,7 +25,7 @@ class AuthorAddView(BaseLoginView, TemplateView):
             try:
                 author = Author.objects.get(pk=author_id)
             except Author.DoesNotExist:
-                logger.warning(f"Genre {author_id} doesn't exists.")
+                logger.warning(f"Book {author_id} doesn't exists.")
 
         return {
             **kwargs,
@@ -422,9 +422,26 @@ class BookDeleteView(BaseLoginView, TemplateView):
             logger.warning(f"Book with id {book_id} does not exist")
         else:
             with transaction.atomic():
+                book.delete_book_artifacts()
                 book.delete()
 
+        return HttpResponseRedirect(reverse('book-catalog'))
 
 
 class BookPreviewView(BaseLoginView, TemplateView):
     template_name = "book-preview.html"
+
+    def get_context_data(self, **kwargs):
+        book = None
+        book_id = kwargs.get('book_id', None)
+        if book_id:
+            try:
+                book = Book.objects.get(pk=book_id)
+            except Book.DoesNotExist:
+                logger.warning(f"Book {book_id} doesn't exists.")
+
+        return {
+            **kwargs,
+            'page_header': 'Preview book',
+            'book': book
+        }

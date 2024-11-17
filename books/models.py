@@ -1,11 +1,14 @@
 import datetime
+import logging
 import os.path
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import MinLengthValidator
 from django.db import models
 from django.db.models import Model, CASCADE
+
+
+logger = logging.getLogger()
 
 
 # Create your models here.
@@ -68,4 +71,12 @@ class Book(TrackedMixin, Model):
         return os.path.join(settings.MEDIA_ROOT, str(self.isbn_no))
 
     def delete_book_artifacts(self):
-        os.removedirs(self.media_directory)
+        try:
+            os.remove(os.path.join(self.media_directory, 'book.pdf'))
+        except NotADirectoryError:
+            logger.warning("Failed to delete book.pdf")
+
+        try:
+            os.remove(os.path.join(self.media_directory, 'thumbnail.png'))
+        except NotADirectoryError:
+            logger.warning("Failed to delete thumbnail.png file")

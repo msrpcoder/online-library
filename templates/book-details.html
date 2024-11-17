@@ -56,9 +56,12 @@
                 </br>
                 <div class="row">
                     <div class="col-sm-12">
-                        <a href="{% url 'book-preview' 12 %}" class="btn btn-primary">Preview</a>
+                        <a href="{% url 'book-preview' book.isbn_no %}" class="btn btn-primary">Preview</a>
                         <button class="btn btn-secondary">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
+                        <form style="display: inline" method="post" action="{% url 'book-delete' book.isbn_no %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
                     </div>
                 </div>
             </div>
