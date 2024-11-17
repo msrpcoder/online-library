@@ -30,4 +30,5 @@ urlpatterns = [
     path('catalog', BookCatalogView.as_view(), name='book-catalog'),
     path('<int:book_id>/details', BookDetailsView.as_view(), name='book-details'),
     path('<int:book_id>/preview', BookPreviewView.as_view(), name='book-preview'),
+    path('<int:book_id>/delete', BookDeleteView.as_view(), name='book-delete'),
 ]

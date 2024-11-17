@@ -18,25 +18,26 @@
                         <h5 class="card-title">Add new book</h5>
 
                         <!-- General Form Elements -->
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="isbn-number">ISBN Number</label>
                                 <div class="col-sm-10">
-                                    <input required id="isbn-number" class="form-control" type="text">
+                                    <input required id="isbn-number" name="isbn-number" class="form-control" type="text">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="title">Title</label>
                                 <div class="col-sm-10">
-                                    <input required id="title" class="form-control" type="text">
+                                    <input required id="title" name="title" class="form-control" type="text">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="author">Author</label>
                                 <div class="col-sm-10">
-                                    <select required id="author" aria-label="Default select example" class="form-select">
+                                    <select required id="author" name="author" aria-label="Default select example" class="form-select">
                                         {% for author in authors %}
                                             <option value="{{author.id}}">{{author.name}}</option>
                                         {% endfor %}
@@ -47,7 +48,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="language">Language</label>
                                 <div class="col-sm-10">
-                                    <select required id="language" aria-label="Default select example" class="form-select">
+                                    <select required id="language" name="language" aria-label="Default select example" class="form-select">
                                         {% for language in languages %}
                                             <option value="{{language.id}}">{{language.name}}</option>
                                         {% endfor %}
@@ -58,7 +59,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="genre">Genre</label>
                                 <div class="col-sm-10">
-                                    <select required id="genre" aria-label="multiple select example" class="form-select" multiple>
+                                    <select required id="genre" name="genre" aria-label="multiple select example" class="form-select" multiple>
                                         {% for genre_obj in genres %}
                                             {% if genre_obj.name == genre %}
                                                 <option value="{{genre_obj.id}}" selected>{{genre_obj.name}}</option>
@@ -73,7 +74,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="publisher">Publisher</label>
                                 <div class="col-sm-10">
-                                    <select required id="publisher" aria-label="Default select example" class="form-select">
+                                    <select required id="publisher" name="publisher" aria-label="Default select example" class="form-select">
                                         {% for publisher in publishers %}
                                             <option value="{{publisher.id}}">{{publisher.name}}</option>
                                         {% endfor %}
@@ -84,14 +85,14 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="publicationDate">Publication Date</label>
                                 <div class="col-sm-10">
-                                    <input required class="form-control" id="publicationDate" type="date">
+                                    <input required class="form-control" id="publicationDate" name="publicationDate" type="date">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="pdf">PDF</label>
                                 <div class="col-sm-10">
-                                    <input required class="form-control" id="pdf" type="file">
+                                    <input required class="form-control" id="pdf" name="pdf" type="file">
                                 </div>
                             </div>
 

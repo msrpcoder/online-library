@@ -10,91 +10,37 @@
 <main class="main" id="main">
     {% include 'breadcrumb.template.html' %}
     <section class="section">
-        <form method="get" action="{% url 'book-add' %}" class="alert alert-primary alert-dismissible fade show" role="">
-            Sports
-            <input type="hidden" name="genre" value="sports" />
+        {% for genre in genres %}
+            <form method="get" action="{% url 'book-add' %}" class="alert alert-primary alert-dismissible fade show" role="">
+            {{genre.name}}
+            <input type="hidden" name="genre" value="{{genre.name}}" />
             <button style="float: right">Add new</button>
         </form>
         <div class="row">
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <a href="{% url 'book-details' 12 %}">
-                        <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="img-tile figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
-                    </a>
-                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
-                </figure>
-            </div>
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <a href="{% url 'book-details' 12 %}">
-                        <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="img-tile figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
-                    </a>
-                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
-                </figure>
-            </div>
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <a href="{% url 'book-details' 12 %}">
-                        <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="img-tile figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
-                    </a>
-                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
-                </figure>
-            </div>
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <a href="{% url 'book-details' 12 %}">
-                        <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="img-tile figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
-                    </a>
-                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
-                </figure>
-            </div>
+            {% for book in genre.book_set.all %}
+                <div class="col-sm-4 col-lg-3">
+                    <figure class="figure">
+                        <a href="{% url 'book-details' book.isbn_no %}">
+                            {% if book.thumbnail_exists  %}
+                                <img alt="A generic square placeholder image with rounded corners in a figure."
+                                 class="img-tile figure-img img-fluid rounded"
+                                 src="{{MEDIA_URL}}{{book.isbn_no}}/thumbnail.png">
+                            {% else %}
+                                <img alt="A generic square placeholder image with rounded corners in a figure."
+                                 class="img-tile figure-img img-fluid rounded"
+                                 src="{% static 'img/default_book_thumbnail.png' %}">
+                            {% endif %}
+                        </a>
+                        <figcaption class="figure-caption">{{book.title}}</figcaption>
+                        <span class="book-attr-in-catalog book-attr-value-in-catalog">Author</span>
+                        <span class="book-attr-value-in-catalog">{{book.author.name}}</span>
+                        <span class="book-attr-in-catalog book-attr-value-in-catalog">Language</span>
+                        <span class="book-attr-value-in-catalog">{{book.language.name}}</span>
+                    </figure>
+                </div>
+            {% endfor %}
         </div>
-        <form method="get" action="{% url 'book-add' %}" class="alert alert-primary alert-dismissible fade show" role="">
-            Religion
-            <input type="hidden" name="genre" value="Religion" />
-            <button style="float: right">Add new</button>
-        </form>
-        <div class="row">
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="img-tile figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
-                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
-                </figure>
-            </div>
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="img-tile figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
-                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
-                </figure>
-            </div>
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <img alt="A generic square placeholder image with rounded corners in a figure." class="img-tile figure-img img-fluid rounded"
-                         src="{% static 'img/logo.png' %}">
-                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
-                </figure>
-            </div>
-            <div class="col-sm-4 col-lg-3">
-                <figure class="figure">
-                    <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="img-tile figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
-                    <figcaption class="figure-caption">Shreemad Bhagwad Geeta.</figcaption>
-                </figure>
-            </div>
-        </div>
+        {% endfor %}
     </section>
 </main>
 

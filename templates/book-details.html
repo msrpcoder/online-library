@@ -13,44 +13,53 @@
         <div class="row">
             <div class="col-sm-6 col-lg-4">
                 <figure class="figure">
-                    <img alt="A generic square placeholder image with rounded corners in a figure."
+                    {% if book.thumbnail_exists  %}
+                        <img alt="A generic square placeholder image with rounded corners in a figure."
                          class="img-preview figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                         src="{{MEDIA_URL}}{{book.isbn_no}}/thumbnail.png">
+                    {% else %}
+                        <img alt="A generic square placeholder image with rounded corners in a figure."
+                         class="img-preview figure-img img-fluid rounded"
+                         src="{% static 'img/default_book_thumbnail.png' %}">
+                    {% endif %}
                 </figure>
             </div>
             <div class="col-sm-6 col-lg-4">
                 <div class="row">
-                    <h2><b>Shreemad Bhagwat Geeta</b></h2>
+                    <h2><b>{{book.title}}</b></h2>
                 </div>
                 <div class="row" style="text-align:right">
-                    <h4>By <i>Ved Vyas</i></h4>
+                    <h4>By <i>{{book.author.name}}</i></h4>
                 </div>
                 </br>
                 <div class="row">
-                    <p><b>Publication:</b> <i>GeetaPress Gorakhpur</i></p>
+                    <p><b>Publication:</b> <i>{{book.publisher.name}}</i></p>
                 </div>
                 <div class="row">
-                    <p><b>Date Published:</b> <i>12/3/2022</i></p>
+                    <p><b>Date Published:</b> <i>{{book.publication_date}}</i></p>
                 </div>
                 <div class="row">
-                    <p><b>ISBN Number:</b> <i>12240-344345-33-345-34324</i></p>
+                    <p><b>ISBN Number:</b> <i>{{book.isbn_no}}</i></p>
                 </div>
                 <div class="row">
-                    <p><b>Language: </b><i>Sanskrit</i></p>
+                    <p><b>Language: </b><i>{{book.language.name}}</i></p>
                 </div>
                 <div class="row">
                     <p>
                         <b>Genres: </b>
-                        <span class="badge bg-secondary">Religion</span>
-                        <span class="badge bg-success">Motivation</span>
+                        <span class="badge bg-primary">{{book.genre.name}}</span>
                     </p>
                 </div>
                 <div class="row">
-                    <p><b>Pages: </b><i>435</i></p>
+                    <p><b>Pages: </b><i>{{book.page_count}}</i></p>
                 </div>
                 </br>
                 <div class="row">
-                    <a href="{% url 'book-preview' 12 %}" class="btn btn-primary">Preview</a>
+                    <div class="col-sm-12">
+                        <a href="{% url 'book-preview' 12 %}" class="btn btn-primary">Preview</a>
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>

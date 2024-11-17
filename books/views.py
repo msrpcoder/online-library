@@ -1,10 +1,15 @@
 import logging
+import os
+from datetime import datetime
+
+from django.db import transaction
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.conf import settings
 from django.urls import reverse
 from django.views.generic import TemplateView
 
-from books.models import Genre, Author, Publisher, Language
+from books.models import Genre, Author, Publisher, Language, Book
+from utils import save_pdf_thumbnail, get_pdf_pages_count
 from utils.views import BaseLoginView
 
 logger = logging.getLogger()
@@ -147,6 +152,96 @@ class BookAddView(BaseLoginView, TemplateView):
             'authors': Author.objects.all(),
             'languages': Language.objects.all()
         }
+
+    def post(self, request, **kwargs):
+        data = request.POST
+
+        errors = {}
+        isbn_no = data.get('isbn-number', '')
+        if not isbn_no:
+            errors['isbn-number'] = 'This field is required.'
+
+        title = data.get('title', '')
+        if not title:
+            errors['title'] = 'This field is required.'
+
+        author_id = data.get('author', '')
+        if not author_id:
+            errors['author'] = 'This field is required'
+
+        try:
+            author = Author.objects.get(pk=author_id)
+        except Author.DoesNotExist:
+            errors['author'] = 'Author does not exists'
+
+        language_id = data.get('language', '')
+        if not language_id:
+            errors['language'] = 'This field is required'
+
+        try:
+            language = Language.objects.get(pk=language_id)
+        except Language.DoesNotExist:
+            errors['language'] = 'Language does not exist'
+
+        genre_id = data.get('genre', '')
+        if not genre_id:
+            errors['genre'] = 'This field is required'
+
+        try:
+            genre = Genre.objects.get(pk=genre_id)
+        except Genre.DoesNotExist:
+            errors['genre'] = 'Genre does not exist'
+
+        publisher_id = data.get('publisher', '')
+        if not publisher_id:
+            errors['publisher'] = 'This field is required'
+
+        try:
+            publisher = Publisher.objects.get(pk=publisher_id)
+        except Publisher.DoesNotExist:
+            errors['publisher'] = 'Publisher does not exist'
+
+        publication_date_raw = data.get('publicationDate', '')
+        if not publication_date_raw:
+            errors['publication_date'] = 'This field is required'
+
+        publication_date = datetime.strptime(publication_date_raw, '%Y-%m-%d').date()
+
+        pdf_file = request.FILES['pdf']
+        if not pdf_file:
+            errors['pdf'] = 'This field is required'
+
+        if len(errors) > 0:
+            return self.get(request, errors=errors)
+        else:
+            # upload_file
+            with transaction.atomic():
+                book = Book()
+                book.language = language
+                book.genre = genre
+                book.publisher = publisher
+                book.publication_date = publication_date
+                book.title = title
+                book.author = author
+                book.isbn_no = isbn_no
+
+                book.save()
+
+                book_media_path = os.path.join(settings.MEDIA_ROOT, str(book.isbn_no))
+                os.makedirs(book_media_path)
+
+                pdf_path = os.path.join(book_media_path, 'book.pdf')
+                with open(pdf_path, 'wb') as fp:
+                    for chunk in pdf_file.chunks():
+                        fp.write(chunk)
+
+                thumbnail_path = os.path.join(book_media_path, 'thumbnail.png')
+                save_pdf_thumbnail(pdf_path, thumbnail_path)
+
+                book.page_count = get_pdf_pages_count(pdf_path)
+                book.save()
+
+            return HttpResponseRedirect(reverse('book-catalog'))
 
 
 class AuthorListView(BaseLoginView, TemplateView):
@@ -299,12 +394,36 @@ class BookCatalogView(BaseLoginView, TemplateView):
     def get_context_data(self, **kwargs):
         return {
             **kwargs,
-            'page_header': 'Book Catalog'
+            'page_header': 'Book Catalog',
+            'genres': Genre.objects.all()
         }
 
 
 class BookDetailsView(BaseLoginView, TemplateView):
     template_name = "book-details.html"
+
+    def get_context_data(self, **kwargs):
+        book_id = kwargs.get('book_id', None)
+        assert book_id, 'id parameter is required'
+
+        return {
+            **kwargs,
+            'book': Book.objects.get(pk=book_id)
+        }
+
+
+class BookDeleteView(BaseLoginView, TemplateView):
+    def post(self, request, **kwargs):
+        book_id = kwargs.get('book_id')
+
+        try:
+            book = Book.objects.get(pk=book_id)
+        except Book.DoesNotExist:
+            logger.warning(f"Book with id {book_id} does not exist")
+        else:
+            with transaction.atomic():
+                book.delete()
+
 
 
 class BookPreviewView(BaseLoginView, TemplateView):
