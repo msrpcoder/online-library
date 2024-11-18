@@ -1,4 +1,7 @@
-from django.contrib.auth import authenticate, login, logout
+import logging
+from logging import getLogger
+
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views import View
@@ -6,20 +9,62 @@ from django.views.generic import TemplateView
 
 from utils.views import NoCacheMixin
 
+logger = getLogger()
+
 
 # Create your views here.
 class SignUpView(NoCacheMixin, TemplateView):
     template_name = 'signup.html'
 
-    def post(self, request: HttpRequest):
-        if request.user.is_authenticated:
-            if request.user.is_superuser:
-                return redirect("admin-dashboard")
-            else:
-                return redirect("book-catalog")
+    def post(self, request, **kwargs):
+        data = request.POST
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+        email = data.get('email', None)
+
+        errors = {}
+        User = get_user_model()
+        if not username:
+            errors['username'] = 'Enter valid username'
         else:
-            username = request.POST.get("username")
-            password = request.POST.get("password")
+            try:
+                users = User.objects.filter(username=username)
+                if len(users) > 0:
+                    errors['username'] = 'Select different username'
+
+            except Exception as e:
+                logger.exception(e)
+                errors['message'] = 'Internal Server Error has occurred.'
+
+        if not password:
+            errors['password'] = 'Enter valid password'
+
+        if not email:
+            errors['email'] = 'Enter valid email'
+        else:
+            try:
+                users = User.objects.filter(email=email)
+                if len(users) > 0:
+                    errors['email'] = 'Select different email'
+
+            except Exception as e:
+                logger.exception(e)
+                errors['message'] = 'Internal Server Error has occurred.'
+
+        if len(errors) > 0:
+            return self.get(self.request, errors=errors, user_details=data)
+
+        user = User()
+        user.username = username
+        user.email = email
+        user.set_password(password)
+
+        user.save()
+
+        login(request, user)
+
+        return redirect('book-catalog')
 
 
 class SignInView(NoCacheMixin, TemplateView):

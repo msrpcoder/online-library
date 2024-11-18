@@ -42,9 +42,9 @@
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <input type="email" name="email" class="form-control" id="yourEmail" value="{{user_details.email}}" required>
                       {% if errors.email %}
-                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                        <div class="invalid-feedback">{{errors.email}}</div>
                       {% endif %}
                     </div>
 
@@ -52,9 +52,9 @@
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="username" class="form-control" id="yourUsername" value="{{user_details.username}}" required>
                         {% if errors.username %}
-                          <div class="invalid-feedback">Please choose a username.</div>
+                          <div class="invalid-feedback">{{errors.username}}</div>
                         {% endif %}
                       </div>
                     </div>
@@ -63,7 +63,7 @@
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       {% if errors.password %}
-                        <div class="invalid-feedback">Please enter your password!</div>
+                        <div class="invalid-feedback">{{errors.password}}</div>
                       {% endif %}
                     </div>
 

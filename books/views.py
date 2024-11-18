@@ -441,54 +441,6 @@ class BookDetailsView(BaseLoginView, TemplateView):
             'book': Book.objects.get(pk=book_id)
         }
 
-    def post(self, **kwargs):
-        data = self.request.POST
-
-        username = data.get('username', None)
-        password = data.get('password', None)
-        email = data.get('email', None)
-
-        errors = {}
-        User = get_user_model()
-        if not username:
-            errors['username'] = 'Enter valid username'
-        else:
-            try:
-                users = User.objects.filter(username=username)
-                if len(users) > 0:
-                    errors['username'] = 'Select different username'
-
-            except Exception as e:
-                logger.exception(e)
-                errors['message'] = 'Internal Server Error has occurred.'
-
-        if not password:
-            errors['password'] = 'Enter valid password'
-
-        if not email:
-            errors['email'] = 'Enter valid email'
-        else:
-            try:
-                users = User.objects.filter(email=email)
-                if len(users) > 0:
-                    errors['email'] = 'Select different email'
-
-            except Exception as e:
-                logger.exception(e)
-                errors['message'] = 'Internal Server Error has occurred.'
-
-        if len(errors) > 0:
-            return self.get(self.request, errors=errors)
-
-        user = User()
-        user.username = username
-        user.email = email
-        user.set_password(password)
-
-        user.save()
-
-        return redirect('book-catalog')
-
 
 class BookDeleteView(BaseLoginView, TemplateView):
     def post(self, request, **kwargs):

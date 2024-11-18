@@ -121,7 +121,7 @@
                     {% if profile_image_exists %}
                         <img alt="Profile" class="rounded-circle" src="{{MEDIA_URL}}{{user.id}}/profile.png">
                     {% else %}
-                        <img alt="Profile" class="rounded-circle bi bi-person" src="{% static 'assets/img/default-user-profile.jpeg' %}" >
+                        <img alt="Profile" class="rounded-circle bi bi-person" src="{% static 'img/default-user-profile.jpeg' %}" >
                     {% endif %}
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{user.username}}</span>
                 </a><!-- End Profile Iamge Icon -->
