@@ -11,11 +11,23 @@
     {% include 'breadcrumb.template.html' %}
     <section class="section">
         <div class="row">
+            {% if message %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{message}}
+                </div>
+            {% endif %}
             <div class="col-lg-3">
                 <figure class="figure">
-                    <img alt="A generic square placeholder image with rounded corners in a figure."
-                         class="profile-img figure-img img-fluid rounded"
-                         src="https://m.media-amazon.com/images/I/91msEbTletL._SL1500_.jpg">
+                    {% if profile_image_exists %}
+                        <img alt="A generic square placeholder image with rounded corners in a figure."
+                             class="profile-img figure-img img-fluid rounded"
+                             src="{{MEDIA_URL}}{{user_id}}/profile.png">
+                    {% else %}
+                        <img alt="A generic square placeholder image with rounded corners in a figure."
+                             class="profile-img figure-img img-fluid rounded"
+                             src="{% static 'assets/img/default-user-profile.jpeg' %}">
+                    {% endif %}
+
                 </figure>
             </div>
             <div class="col-lg-9">
@@ -23,29 +35,39 @@
                     <div class="card-body">
                         <h5 class="card-title">Profile details</h5>
                         <!-- General Form Elements -->
-                        <form>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="firstName">First Name</label>
+                                <label class="col-sm-2 col-form-label" for="first_name">First Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="firstName" type="text">
+                                    <input required class="form-control" name="first_name" id="first_name" type="text" value="{{first_name}}" >
+                                    {% if errors.first_name %}
+                                        <p class="invalid-feedback">{{errors.first_name}}</p>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="lastName">Last Name</label>
+                                <label class="col-sm-2 col-form-label" for="last_name">Last Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="lastName" type="text">
+                                    <input required class="form-control" name="last_name" id="last_name" type="text" value="{{last_name}}">
+                                    {% if errors.last_name %}
+                                        <p class="invalid-feedback">{{errors.last_name}}</p>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="email">Email</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="email" type="email">
+                                    <input required class="form-control" id="email" name="email" type="email" value="{{email}}">
+                                    {% if errors.email %}
+                                        <p class="invalid-feedback">{{errors.email}}</p>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="profileImage">Profile Image</label>
+                                <label class="col-sm-2 col-form-label" for="profile_image">Profile Image</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="profileImage" type="file">
+                                    <input class="form-control" id="profile_image" name="profile_image" type="file"  accept=".png,.jpg,.jpeg">
                                 </div>
                             </div>
                             <div class="row mb-3">

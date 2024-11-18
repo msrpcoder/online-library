@@ -11,6 +11,16 @@ from utils.views import NoCacheMixin
 class SignUpView(NoCacheMixin, TemplateView):
     template_name = 'signup.html'
 
+    def post(self, request: HttpRequest):
+        if request.user.is_authenticated:
+            if request.user.is_superuser:
+                return redirect("admin-dashboard")
+            else:
+                return redirect("book-catalog")
+        else:
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
 
 class SignInView(NoCacheMixin, TemplateView):
     template_name = 'signin.html'
@@ -26,7 +36,10 @@ class SignInView(NoCacheMixin, TemplateView):
 
     def post(self, request: HttpRequest):
         if request.user.is_authenticated:
-            return redirect("admin-dashboard")
+            if request.user.is_superuser:
+                return redirect("admin-dashboard")
+            else:
+                return redirect("book-catalog")
         else:
             username = request.POST.get("username")
             password = request.POST.get("password")
