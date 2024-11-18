@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
 
+from activity.models import Activity
+from utils import log_activity
 from utils.views import NoCacheMixin
 
 logger = getLogger()
@@ -64,6 +66,8 @@ class SignUpView(NoCacheMixin, TemplateView):
 
         login(request, user)
 
+        log_activity(user, Activity.Type.USER_SIGNUP, '')
+
         return redirect('book-catalog')
 
 
@@ -105,14 +109,21 @@ class SignInView(NoCacheMixin, TemplateView):
                 login(request, user)
                 next_url = request.POST.get("next")
                 if next_url:
-                    return redirect(next_url)
+                    redirect_url = next_url
 
-                return redirect("admin-dashboard")
+                if user.is_superuser:
+                    redirect_url = "admin-dashboard"
+                else:
+                    redirect_url = "book-catalog"
+
+                log_activity(user, Activity.Type.USER_SIGNIN, '')
+                return redirect(redirect_url)
 
 
 class SignOutView(NoCacheMixin, View):
     def get(self, request: HttpRequest):
         if request.user.is_authenticated:
+            log_activity(request.user, Activity.Type.USER_SIGNOUT, '')
             logout(request)
 
         return redirect('signin')

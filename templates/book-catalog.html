@@ -14,7 +14,9 @@
             <form method="get" action="{% url 'book-add' %}" class="alert alert-primary alert-dismissible fade show" role="">
             {{genre.name}}
             <input type="hidden" name="genre" value="{{genre.name}}" />
-            <button style="float: right">Add new</button>
+            {% if user.is_superuser %}
+                <button style="float: right">Add new</button>
+            {% endif %}
         </form>
         <div class="row">
             {% for book in genre.book_set.all %}

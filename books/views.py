@@ -10,8 +10,9 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import TemplateView
 
+from activity.models import Activity
 from books.models import Genre, Author, Publisher, Language, Book
-from utils import save_pdf_thumbnail, get_pdf_pages_count
+from utils import save_pdf_thumbnail, get_pdf_pages_count, log_activity
 from utils.views import BaseLoginView
 
 logger = logging.getLogger()
@@ -152,7 +153,8 @@ class BookAddView(BaseLoginView, TemplateView):
             'genres': Genre.objects.all(),
             'publishers': Publisher.objects.all(),
             'authors': Author.objects.all(),
-            'languages': Language.objects.all()
+            'languages': Language.objects.all(),
+            'max_date': datetime.strftime(datetime.today(), '%Y-%m-%d')
         }
 
     def get(self, request, **kwargs):
@@ -270,6 +272,7 @@ class BookAddView(BaseLoginView, TemplateView):
                 book.page_count = get_pdf_pages_count(pdf_path)
                 book.save()
 
+            log_activity(request.user, Activity.Type.BOOK_ADDED, f'{book.title} by', book.isbn_no)
             return HttpResponseRedirect(reverse('book-catalog'))
 
 
@@ -469,6 +472,9 @@ class BookPreviewView(BaseLoginView, TemplateView):
                 book = Book.objects.get(pk=book_id)
             except Book.DoesNotExist:
                 logger.warning(f"Book {book_id} doesn't exists.")
+            else:
+                if not self.request.user.is_superuser:
+                    log_activity(self.request.user, Activity.Type.BOOK_PREVIEWED, f'{book.title} by', book.isbn_no)
 
         return {
             **kwargs,
