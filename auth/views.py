@@ -14,6 +14,10 @@ from utils.views import NoCacheMixin
 logger = getLogger()
 
 
+class LandingPageView(NoCacheMixin, TemplateView):
+    template_name = 'index.html'
+
+
 # Create your views here.
 class SignUpView(NoCacheMixin, TemplateView):
     template_name = 'signup.html'

@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Read Me - Online Library</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css" rel="stylesheet' %}">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  {% include 'css.template.html' %}
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <div class="d-flex justify-content-center py-4">
+          <a href="index.html" class="logo d-flex align-items-center w-auto">
+            <img src="{% static 'img/logo.png' %}" alt="">
+            <span class="d-none d-lg-block">Read Me</span>
+          </a>
+        </div>
+
+<!--      <nav id="navmenu" class="navmenu">-->
+<!--        <ul>-->
+<!--          <li><a href="#hero" class="active">Home</a></li>-->
+<!--          <li><a href="#about">About</a></li>-->
+<!--          <li><a href="#features">Features</a></li>-->
+<!--          <li><a href="#gallery">Gallery</a></li>-->
+<!--          <li><a href="#team">Team</a></li>-->
+<!--          <li><a href="#pricing">Pricing</a></li>-->
+<!--          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--            <ul>-->
+<!--              <li><a href="#">Dropdown 1</a></li>-->
+<!--              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--                <ul>-->
+<!--                  <li><a href="#">Deep Dropdown 1</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 2</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 3</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 4</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 5</a></li>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--              <li><a href="#">Dropdown 2</a></li>-->
+<!--              <li><a href="#">Dropdown 3</a></li>-->
+<!--              <li><a href="#">Dropdown 4</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+<!--          <li><a href="#contact">Contact</a></li>-->
+<!--        </ul>-->
+<!--        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>-->
+<!--      </nav>-->
+
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <img src="{% static 'img/hero-bg-2.jpg' %}" alt="" class="hero-bg">
+      <div class="container">
+        <div class="row gy-4 justify-content-between">
+          <div class="col-lg-4 order-lg-last hero-img" data-aos="zoom-out" data-aos-delay="100">
+            <img src="{% static 'img/hero-img.png' %}" class="img-fluid animated" alt="">
+          </div>
+
+          <div class="col-lg-6  d-flex flex-column justify-content-center" data-aos="fade-in">
+            <h1>Digital library-<span>Read Me</span></h1>
+            <p>Platform for sharing books and archives</p>
+            <div class="d-flex">
+              <a href="{% url 'signin' %}" class="btn-get-started">Sign in</a>
+              <a href="{% url 'signup' %}" class="btn-get-started">Sign up</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+        <defs>
+          <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+        </defs>
+        <g class="wave1">
+          <use xlink:href="#wave-path" x="50" y="3"></use>
+        </g>
+        <g class="wave2">
+          <use xlink:href="#wave-path" x="50" y="0"></use>
+        </g>
+        <g class="wave3">
+          <use xlink:href="#wave-path" x="50" y="9"></use>
+        </g>
+      </svg>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+
+    <!-- Features Section -->
+<!--    <section id="features" class="features section">-->
+
+<!--      <div class="container">-->
+
+<!--        <div class="row gy-4">-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-eye" style="color: #ffbb2c;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="200">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-infinity" style="color: #5578ff;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Dolor Sitema</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="300">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-mortarboard" style="color: #e80368;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Sed perspiciatis</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="400">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-nut" style="color: #e361ff;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Magni Dolores</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="500">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-shuffle" style="color: #47aeff;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Nemo Enim</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="600">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-star" style="color: #ffa76e;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Eiusmod Tempor</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="700">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-x-diamond" style="color: #11dbcf;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Midela Teren</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="800">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-camera-video" style="color: #4233ff;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Pira Neve</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="900">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-command" style="color: #b2904f;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Dirada Pack</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1000">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-dribbble" style="color: #b20969;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Moton Ideal</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1100">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-activity" style="color: #ff5828;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Verdo Park</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--          <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1200">-->
+<!--            <div class="features-item">-->
+<!--              <i class="bi bi-brightness-high" style="color: #29cc61;"></i>-->
+<!--              <h3><a href="" class="stretched-link">Flavor Nivelanda</a></h3>-->
+<!--            </div>-->
+<!--          </div>&lt;!&ndash; End Feature Item &ndash;&gt;-->
+
+<!--        </div>-->
+
+<!--      </div>-->
+
+<!--    </section>&lt;!&ndash; /Features Section &ndash;&gt;-->
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section light-background">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-person"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Users</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-book"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Books</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-translate"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Languages</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-people"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Authors</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Stats Section -->
+  </main>
+
+  <footer id="footer" class="footer" style="margin-left:40px">
+    <div class="copyright">
+        &copy; Copyright 2024 <strong><span>Read Me</span></strong>. All Rights Reserved
+    </div>
+  </footer><!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main1.js' %}"></script>
+  {% include 'js.template.html' %}
+
+</body>
+
+</html>

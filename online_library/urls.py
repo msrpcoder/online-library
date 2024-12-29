@@ -22,7 +22,7 @@ from django.shortcuts import redirect
 from django.urls import path, include
 
 from admin.views import AdminDashboardView
-from auth.views import SignInView
+from auth.views import SignInView, LandingPageView
 
 urlpatterns = [
     path('admin/dashboard', AdminDashboardView.as_view(), name='admin-dashboard'),
@@ -30,7 +30,7 @@ urlpatterns = [
     path('auth/', include('auth.urls')),
     path('books/', include('books.urls')),
     path('users/', include('user.urls')),
-    path('', SignInView.as_view(), name='landing-view')
+    path('', LandingPageView.as_view(), name='landing-view')
 ] + staticfiles_urlpatterns()
 
 # if settings.DEBUG:
