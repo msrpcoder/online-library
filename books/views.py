@@ -2,11 +2,10 @@ import logging
 import os
 from datetime import datetime
 
-from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView
 
@@ -276,6 +275,25 @@ class BookAddView(BaseLoginView, TemplateView):
             return HttpResponseRedirect(reverse('book-catalog'))
 
 
+class BookSearchView(BaseLoginView, TemplateView):
+    template_name = "search-books.html"
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Book Search Results',
+            'search_results': Book.objects.filter(title__contains=self.request.POST.get('query'))[:25],
+            'search_realm': 'books',
+            'query': self.request.POST.get('query', '')
+        }
+
+    def post(self, request, **kwargs):
+        search_keyword = request.POST.get('query', None)
+        if not search_keyword:
+            return redirect(reverse('book-catalog'))
+
+        return super().get(self, **kwargs)
+
 class AuthorListView(BaseLoginView, TemplateView):
     template_name = 'list-authors.html'
 
@@ -427,7 +445,8 @@ class BookCatalogView(BaseLoginView, TemplateView):
         return {
             **kwargs,
             'page_header': 'Book Catalog',
-            'genres': Genre.objects.all()
+            'genres': Genre.objects.all(),
+            'search_realm': 'books'
         }
 
 

@@ -2,7 +2,7 @@ from django.urls import path
 
 from books.views import BookAddView, BookCatalogView, BookPreviewView, BookDetailsView, GenreAddView, GenreListView, \
     GenreDeleteView, AuthorAddView, AuthorListView, AuthorDeleteView, PublisherListView, PublisherAddView, \
-    PublisherDeleteView, LanguageListView, LanguageAddView, LanguageDeleteView, BookDeleteView
+    PublisherDeleteView, LanguageListView, LanguageAddView, LanguageDeleteView, BookDeleteView, BookSearchView
 
 urlpatterns = [
     # genre urlconfig
@@ -27,6 +27,7 @@ urlpatterns = [
     path('languages/<int:id>/delete', LanguageDeleteView.as_view(), name='language-delete'),
     # book urlconfig
     path('add', BookAddView.as_view(), name='book-add'),
+    path('search', BookSearchView.as_view(), name='book-search'),
     path('catalog', BookCatalogView.as_view(), name='book-catalog'),
     path('<int:book_id>/details', BookDetailsView.as_view(), name='book-details'),
     path('<int:book_id>/preview', BookPreviewView.as_view(), name='book-preview'),

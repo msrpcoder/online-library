@@ -12,12 +12,15 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-<!--    <div class="search-bar">-->
-<!--        <form action="#" class="search-form d-flex align-items-center" method="POST">-->
-<!--            <input name="query" placeholder="Search" title="Enter search keyword" type="text">-->
-<!--            <button title="Search" type="submit"><i class="bi bi-search"></i></button>-->
-<!--        </form>-->
-<!--    </div>&lt;!&ndash; End Search Bar &ndash;&gt;-->
+    {% if search_realm %}
+        <div class="search-bar">
+            <form action="{% url 'book-search' %}" class="search-form d-flex align-items-center" method="POST">
+                {% csrf_token %}
+                <input name="query" placeholder="Search" value="{{query}}" title="Enter search keyword" type="text">
+                <button title="Search" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+    {% endif %}
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
