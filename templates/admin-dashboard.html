@@ -129,7 +129,7 @@
                             {% for book in top_10_books %}
                                 <tr>
                                     <th scope="row">
-                                        <a href="{% url 'book-details' 12 %}">
+                                        <a href="{% url 'book-details' book.book.isbn_no %}">
                                             {% if book.book.thumbnail_exists  %}
                                                 <img height="60px" width="60px" alt="A generic square placeholder image with rounded corners in a figure."
                                                  class="figure-img img-fluid rounded"

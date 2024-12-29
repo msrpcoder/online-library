@@ -14,9 +14,9 @@
 
     {% if search_realm %}
         <div class="search-bar">
-            <form action="{% url 'book-search' %}" class="search-form d-flex align-items-center" method="POST">
+            <form action="{{search_path}}" class="search-form d-flex align-items-center" method="POST">
                 {% csrf_token %}
-                <input name="query" placeholder="Search" value="{{query}}" title="Enter search keyword" type="text">
+                <input name="query" placeholder="Search {{search_realm}}" value="{{query}}" title="Enter search keyword" type="text">
                 <button title="Search" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </div><!-- End Search Bar -->

@@ -17,6 +17,23 @@ from utils.views import BaseLoginView
 logger = logging.getLogger()
 
 
+class AuthorSearchView(BaseLoginView, TemplateView):
+    template_name = 'list-authors.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Authors',
+            'authors': Author.objects.filter(name__contains=self.request.POST.get('query'))[:25],
+            'search_realm': 'authors',
+            'search_path': reverse('author-search'),
+            'query': self.request.POST.get('query', '')
+        }
+
+    def post(self, request, **kwargs):
+        return super().get(request, **kwargs)
+
+
 class AuthorAddView(BaseLoginView, TemplateView):
     template_name = 'add-author.html'
 
@@ -56,6 +73,23 @@ class AuthorAddView(BaseLoginView, TemplateView):
             author.save()
 
             return HttpResponseRedirect(reverse('author-list'))
+
+
+class PublisherSearchView(BaseLoginView, TemplateView):
+    template_name = 'list-publishers.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Publishers',
+            'publishers': Publisher.objects.filter(name__contains=self.request.POST.get('query'))[:25],
+            'search_realm': 'publisher',
+            'search_path': reverse('publisher-search'),
+            'query': self.request.POST.get('query', '')
+        }
+
+    def post(self, request, **kwargs):
+        return super().get(request, **kwargs)
 
 
 class PublisherAddView(BaseLoginView, TemplateView):
@@ -284,6 +318,7 @@ class BookSearchView(BaseLoginView, TemplateView):
             'page_header': 'Book Search Results',
             'search_results': Book.objects.filter(title__contains=self.request.POST.get('query'))[:25],
             'search_realm': 'books',
+            'search_path': reverse('book-search'),
             'query': self.request.POST.get('query', '')
         }
 
@@ -294,6 +329,7 @@ class BookSearchView(BaseLoginView, TemplateView):
 
         return super().get(self, **kwargs)
 
+
 class AuthorListView(BaseLoginView, TemplateView):
     template_name = 'list-authors.html'
 
@@ -301,7 +337,9 @@ class AuthorListView(BaseLoginView, TemplateView):
         return {
             **kwargs,
             'page_header': 'Authors',
-            'authors': Author.objects.all()
+            'authors': Author.objects.all(),
+            'search_realm': 'authors',
+            'search_path': reverse('author-search')
         }
 
 
@@ -312,8 +350,27 @@ class PublisherListView(BaseLoginView, TemplateView):
         return {
             **kwargs,
             'page_header': 'Publishers',
-            'publishers': Publisher.objects.all()
+            'publishers': Publisher.objects.all(),
+            'search_realm': 'publisher',
+            'search_path': reverse('publisher-search')
         }
+
+
+class LanguageSearchView(BaseLoginView, TemplateView):
+    template_name = 'list-languages.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Languages',
+            'languages': Language.objects.filter(name__contains=self.request.POST.get('query'))[:25],
+            'search_realm': 'language',
+            'search_path': reverse('language-search'),
+            'query': self.request.POST.get('query', '')
+        }
+
+    def post(self, request, **kwargs):
+        return super().get(request, **kwargs)
 
 
 class LanguageListView(BaseLoginView, TemplateView):
@@ -323,7 +380,9 @@ class LanguageListView(BaseLoginView, TemplateView):
         return {
             **kwargs,
             'page_header': 'Languages',
-            'languages': Language.objects.all()
+            'languages': Language.objects.all(),
+            'search_realm': 'language',
+            'search_path': reverse('language-search')
         }
 
 
@@ -383,6 +442,23 @@ class LanguageDeleteView(BaseLoginView):
         return HttpResponseRedirect(redirect_to=reverse('language-list'))
 
 
+class GenreSearchView(BaseLoginView, TemplateView):
+    template_name = 'list-genres.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            **kwargs,
+            'page_header': 'Genres',
+            'genres': Genre.objects.filter(name__contains=self.request.POST.get('query'))[:25],
+            'search_realm': 'genres',
+            'search_path': reverse('genre-search'),
+            'query': self.request.POST.get('query', '')
+        }
+
+    def post(self, request, **kwargs):
+        return super().get(request, **kwargs)
+
+
 class GenreAddView(BaseLoginView, TemplateView):
     template_name = 'add-genre.html'
 
@@ -434,7 +510,9 @@ class GenreListView(BaseLoginView, TemplateView):
         return {
             **kwargs,
             'page_header': 'Genres',
-            'genres': Genre.objects.all()
+            'genres': Genre.objects.all(),
+            'search_realm': 'genres',
+            'search_path': reverse('genre-search')
         }
 
 
@@ -446,7 +524,8 @@ class BookCatalogView(BaseLoginView, TemplateView):
             **kwargs,
             'page_header': 'Book Catalog',
             'genres': Genre.objects.all(),
-            'search_realm': 'books'
+            'search_realm': 'books',
+            'search_path': reverse('book-search')
         }
 
 
