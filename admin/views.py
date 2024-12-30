@@ -26,7 +26,7 @@ class AdminDashboardView(BaseLoginView, TemplateView):
             books_map[book.pk] = book
 
         for activity in top_10_books_activity:
-            activity['book'] = books_map[activity['object_details']]
+            activity['book'] = books_map.get(activity['object_details'], None)
 
         top_books_by_genre = Book.objects.filter(isbn_no__in=map(lambda x: x['object_details'], total_activity)).values('genre').annotate(total=Count('genre')).order_by('-total')
 

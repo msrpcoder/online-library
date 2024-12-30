@@ -127,6 +127,7 @@
                             </thead>
                             <tbody>
                             {% for book in top_10_books %}
+                                {% if book.book %}
                                 <tr>
                                     <th scope="row">
                                         <a href="{% url 'book-details' book.book.isbn_no %}">
@@ -146,6 +147,7 @@
                                     <td class="fw-bold">{{book.book.publisher.name}}</td>
                                     <td>{{book.total}}</td>
                                 </tr>
+                                {% endif %}
                             {% endfor %}
                             </tbody>
                         </table>
